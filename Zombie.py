@@ -18,7 +18,10 @@ class Zombie(Ball):
         self.maxWait = 60*.25
         self.image = self.images[self.frame]
         self.rect = self.image.get_rect(center = pos)
+        self.radius = (int(self.rect.height/2.0 + self.rect.width/2.0)/2) - 1
         self.maxSpeed = random.randint(1,3)
+        self.speedx = 0
+        self.speedy = 0
         self.kind = "zombie"
         self.value = 100
         
@@ -27,11 +30,15 @@ class Zombie(Ball):
         width = args[1]
         height = args[2]
         playerPos = args[3]
-        speed = args[4]
         self.facePlayer(playerPos)
-        Ball.update(self, width, height, speed)
+        Ball.update(self, width, height,)
+        self.move()
         self.animate()
         self.changed = False
+    
+    def move(self):
+        self.speed = [self.speedx, self.speedy]
+        self.rect = self.rect.move(self.speed)
     
     def facePlayer(self, pt):
         xdiff = pt[0] - self.rect.center[0]
@@ -113,7 +120,8 @@ class RedZombie(Zombie):
         self.waitCount = 0
         self.maxWait = 60*.25
         self.image = self.images[self.frame]
-        self.rect = self.image.get_rect()
+        self.rect = self.image.get_rect(center = pos)
+        self.radius = (int(self.rect.height/2.0 + self.rect.width/2.0)/2) - 1
         self.maxSpeed = random.randint(1,3)
         self.kind = "zombie"
         self.value = 500
@@ -209,7 +217,8 @@ class  Maoira(Zombie):
         self.waitCount = 0
         self.maxWait = 60*.25
         self.image = self.images[self.frame]
-        self.rect = self.image.get_rect()
+        self.rect = self.image.get_rect(center = pos)
+        self.radius = (int(self.rect.height/2.0 + self.rect.width/2.0)/2) - 1
         self.kind = "maoira"
         self.value = 1000
         
@@ -304,7 +313,8 @@ class Phantom(Zombie):
         self.waitCount = 0
         self.maxWait = 60*.25
         self.image = self.images[self.frame]
-        self.rect = self.image.get_rect()
+        self.rect = self.image.get_rect(center = pos)
+        self.radius = (int(self.rect.height/2.0 + self.rect.width/2.0)/2) - 1
         self.kind = "phantom"
         self.value = 2000
         
@@ -399,7 +409,8 @@ class Druflyll(Zombie):
         self.waitCount = 0
         self.maxWait = 60*.25
         self.image = self.images[self.frame]
-        self.rect = self.image.get_rect()
+        self.rect = self.image.get_rect(center = pos)
+        self.radius = (int(self.rect.height/2.0 + self.rect.width/2.0)/2) - 1
         self.life = 2.0
         self.kind = "druflyll"
         self.value = 3500
@@ -498,7 +509,8 @@ class Chatterbox(Zombie):
         self.waitCount = 0
         self.maxWait = 60*.25
         self.image = self.images[self.frame]
-        self.rect = self.image.get_rect()
+        self.rect = self.image.get_rect(center = pos)
+        self.radius = (int(self.rect.height/2.0 + self.rect.width/2.0)/2) - 1
         self.life = 1.0
         self.kind = "chatterbox"
         self.value = 3000
@@ -597,7 +609,8 @@ class Illuminatus(Zombie):
         self.waitCount = 0
         self.maxWait = 60*.25
         self.image = self.images[self.frame]
-        self.rect = self.image.get_rect()
+        self.rect = self.image.get_rect(center = pos)
+        self.radius = (int(self.rect.height/2.0 + self.rect.width/2.0)/2) - 1
         self.life = 20.0
         self.kind = "illuminatus"
         self.value = 50000
@@ -696,7 +709,8 @@ class Raksasha(Zombie):
         self.waitCount = 0
         self.maxWait = 60*.25
         self.image = self.images[self.frame]
-        self.rect = self.image.get_rect()
+        self.rect = self.image.get_rect(center = pos)
+        self.radius = (int(self.rect.height/2.0 + self.rect.width/2.0)/2) - 1
         self.life = 4.0
         self.kind = "raksasha"
         self.value = 10000
@@ -795,7 +809,8 @@ class Ghast(Zombie):
         self.waitCount = 0
         self.maxWait = 60*.25
         self.image = self.images[self.frame]
-        self.rect = self.image.get_rect()
+        self.rect = self.image.get_rect(center = pos)
+        self.radius = (int(self.rect.height/2.0 + self.rect.width/2.0)/2) - 1
         self.life = 4.0
         self.kind = "ghast"
         self.value = 10000
@@ -894,7 +909,8 @@ class BadJuju(Zombie):
         self.waitCount = 0
         self.maxWait = 60*.25
         self.image = self.images[self.frame]
-        self.rect = self.image.get_rect()
+        self.rect = self.image.get_rect(center = pos)
+        self.radius = (int(self.rect.height/2.0 + self.rect.width/2.0)/2) - 1
         self.life = 10.0
         self.kind = "badjuju"
         self.value = 1000000

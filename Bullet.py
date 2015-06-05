@@ -6,6 +6,13 @@ class Bullet(Ball):
     def __init__(self, pos, bspeed, heading, heading2 = None, life = 500):
             pygame.sprite.Sprite.__init__(self, self.containers)
             self.image = pygame.image.load("RSC/Bullet/Illuminati1.png")
+            self.rect = self.image.get_rect(center = pos)
+            self.maxspeed = 5
+            self.speedx = 0
+            self.speedy = 0
+            self.speed = [self.speedx, self.speedy]
+            self.place(pos)
+            self.radius = (int(self.rect.height/2.0 + self.rect.width/2.0)/2) - 1
             if heading == "up" or heading2 == "up":
                 self.speedy = -bspeed
             if heading == "down" or heading2 == "down":
@@ -28,19 +35,24 @@ class Bullet(Ball):
         width = args[1]
         height = args[2]
         Ball.update(self, width, height,)
+        self.move()
         if self.life > 0:
             self.life -= 1
         else:
             self.living = False
+    
+    def move(self):
+        self.speed = [self.speedx, self.speedy]
+        self.rect = self.rect.move(self.speed)
             
     def collideWall(self, width, height):
         if not self.didBounceX:
             #print "trying to hit Wall"
             if self.rect.left < 0 or self.rect.right > width:
-                self.living = False
+                self.kill()
         if not self.didBounceY:
             if self.rect.top < 0 or self.rect.bottom > height:
-                self.living = False
+                self.kill()
 
 class Exploder(Bullet):
     def __init__(self, pos, bspeed, heading, heading2 = None, life = 40):

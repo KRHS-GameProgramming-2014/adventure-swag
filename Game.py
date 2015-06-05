@@ -137,7 +137,7 @@ while True:
                 elif kind <71:
                     Maoira([random.randint(0,width),-50])
                 elif kind <77:
-                    Phantom([random.randint(0,width),-50])
+                     Phantom([random.randint(0,width),-50])
                 elif kind <86:
                     Druflyll([random.randint(0,width),-50])
                 elif kind <101:
