@@ -22,6 +22,7 @@ class Player(Ball):
         self.maxspeed = 5
         self.speedx = 0
         self.speedy = 0
+        self.speed = [self.speedx, self.speedy]
         self.pistol = Gun("pistol")
         self.uzi = Gun("uzi")
         self.shotGun = Gun("shot gun")
@@ -34,10 +35,11 @@ class Player(Ball):
             
     def update(*args):
         self = args[0]
+        print self
         width = args[1]
         height = args[2]
         Ball.update(self, width, height)
-        self.go()
+        #self.go()
         self.animate()
         self.changed = False
         #print self.gun.coolDown
@@ -140,11 +142,11 @@ class Player(Ball):
             return []
             
     def collideZombie(self, other):
-		if self.rect.right > other.rect.left and self.rect.left < other.rect.right:
-			if self.rect.bottom > other.rect.top and self.rect.top < other.rect.bottom:
-				if (self.radius + other.radius) > self.distance(other.rect.center):
-					if self.life > 0:
-						self.life = self.life - 11
-					elif self.life < 0: 
-						self.living = False        
+        if self.rect.right > other.rect.left and self.rect.left < other.rect.right:
+            if self.rect.bottom > other.rect.top and self.rect.top < other.rect.bottom:
+                if (self.radius + other.radius) > self.distance(other.rect.center):
+                    if self.life > 0:
+                        self.life = self.life - 11
+                    elif self.life < 0: 
+                        self.living = False        
 

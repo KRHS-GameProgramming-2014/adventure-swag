@@ -6,6 +6,7 @@ class Bullet(Ball):
     def __init__(self, pos, bspeed, heading, heading2 = None, life = 500):
             pygame.sprite.Sprite.__init__(self, self.containers)
             self.image = pygame.image.load("RSC/Bullet/Illuminati1.png")
+            
             if heading == "up" or heading2 == "up":
                 self.speedy = -bspeed
             if heading == "down" or heading2 == "down":
