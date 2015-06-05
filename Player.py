@@ -4,7 +4,7 @@ from Bullet import *
 from Gun import Gun
 
 class Player(Ball):
-    def __init__(self, pos,):
+    def __init__(self, pos):
         pygame.sprite.Sprite.__init__(self, self.containers)
         self.upImages = [pygame.image.load("RSC/Player/Shadow2.png")]
         self.downImages = [pygame.image.load("RSC/Player/Shadow2.png")]
@@ -31,15 +31,15 @@ class Player(Ball):
         self.laser = Gun("laser")
         self.gun = self.pistol
         self.shooting = False
+        self.radius = (int(self.rect.height/2.0 + self.rect.width/2.0)/2) - 1
         self.life = 100
             
     def update(*args):
         self = args[0]
-        print self
         width = args[1]
         height = args[2]
         Ball.update(self, width, height)
-        #self.go()
+        self.move()
         self.animate()
         self.changed = False
         #print self.gun.coolDown
@@ -48,6 +48,10 @@ class Player(Ball):
                 self.gun.coolDown += 1
             else:
                 self.gun.coolDown = 0
+    
+    def move(self):
+        self.speed = [self.speedx, self.speedy]
+        self.rect = self.rect.move(self.speed)
         
     def collideWall(self, width, height):
         if not self.didBounceX:
@@ -150,3 +154,11 @@ class Player(Ball):
                     elif self.life < 0: 
                         self.living = False        
 
+class Player2(Player):
+    def __init__(self, pos):
+    	Player.__init__(self, pos,)
+        self.upImages = [pygame.image.load("RSC/Player/LightShadow2.png")]
+        self.downImages = [pygame.image.load("RSC/Player/LightShadow2.png")]
+        self.leftImages = [pygame.image.load("RSC/Player/LightShadow2.png")]
+        self.rightImages = [pygame.image.load("RSC/Player/LightShadow2.png")]
+        
