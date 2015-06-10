@@ -28,6 +28,7 @@ class Player(Ball):
         self.maxspeed = 5
         self.speedx = 0
         self.speedy = 0
+        self.speed = [self.speedx, self.speedy]
         self.pistol = Gun("pistol")
         self.uzi = Gun("uzi")
         self.shotGun = Gun("shot gun")
