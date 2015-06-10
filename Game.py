@@ -31,18 +31,24 @@ Zombie.containers = (all, enemies)
 Bullet.containers = (all, bullets)
 Score.containers = (all, hudItems)
 
-BackGround("RSC/Background/WhiteSmokeInvertCrystal.png", False)
+
 
 run = "menu"
 
 while True:
+    for s in all.sprites():
+        s.kill()
+    BackGround("RSC/Background/SiockTitleScreen.png", False)
     while run == "menu":
         for event in pygame.event.get():
             if event.type == pygame.QUIT: sys.exit()
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_SPACE:
                     run = "game"
-        
+                if event.key == pygame.K_c:
+                    run = "control"
+                if event.key == pygame.K_x:
+                    run = "story"
         all.update(width, height)
         
         dirty = all.draw(screen)
@@ -52,6 +58,41 @@ while True:
         
     for s in all.sprites():
         s.kill()
+    BackGround("RSC/Background/controlmenu.png", False)
+    while run == "control":
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT: sys.exit()
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_BACKSPACE:
+                    run = "menu"
+                
+        all.update(width, height)
+        
+        dirty = all.draw(screen)
+        pygame.display.update(dirty)
+        pygame.display.flip()
+        clock.tick(60)
+        
+        for s in all.sprites():
+         s.kill()
+    
+    BackGround("RSC/Background/story.png", False)
+    while run == "story":
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT: sys.exit()
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_BACKSPACE:
+                    run = "menu"
+                
+        all.update(width, height)
+        
+        dirty = all.draw(screen)
+        pygame.display.update(dirty)
+        pygame.display.flip()
+        clock.tick(60)  
+        
+        for s in all.sprites():
+         s.kill()
     
     BackGround("RSC/Background/Illuminati.png", True, [0,-1])
 
@@ -59,92 +100,93 @@ while True:
 
     spawnRate = .3 #seconds
 
-player1 = Player((width/2, height/2))
+    player1 = Player((width/2, height/2))
 
-player2 = Player2((width/2, height/2))
+    player2 = Player((width/2, height/2))
 
-while True:
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT: sys.exit()
-        if event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_w:
-                player1.go("up")
-            if event.key == pygame.K_UP:
-                player2.go("up")
-            if event.key == pygame.K_d:
-                player1.go("right")
-            if event.key == pygame.K_RIGHT:
-                player2.go("right")
-            if event.key == pygame.K_s:
-                player1.go("down")
-            if event.key == pygame.K_DOWN:
-                player2.go("down")
-            if event.key == pygame.K_a:
-                player1.go("left")
-            if event.key == pygame.K_LEFT:
-                player2.go("left")
-            if event.key == pygame.K_SPACE:
-                player1.shoot()
-            if event.key == pygame.K_RETURN:
-                player2.shoot()
-            if event.key == pygame.K_1:
-                player1.gun = player1.pistol
-                player1.shoot("stop")
-            if event.key == pygame.K_KP1:
-                player2.gun = player2.pistol
-                player2.shoot("stop")
-            if event.key == pygame.K_2:
-                player1.gun = player1.shotGun
-                player1.shoot("stop")
-            if event.key == pygame.K_KP2:
-                player2.gun = player2.shotGun
-                player2.shoot("stop")
-            if event.key == pygame.K_3:
-                player1.gun = player1.uzi
-                player1.shoot("stop")
-            if event.key == pygame.K_KP3:
-                player2.gun = player2.uzi
-                player2.shoot("stop")
-            if event.key == pygame.K_4:
-                player1.gun = player1.joker
-                player1.shoot("stop")
-            if event.key == pygame.K_KP4:
-                player2.gun = player2.joker
-                player2.shoot("stop")
-            if event.key == pygame.K_5:
-                player1.gun = player1.exploder
-                player1.shoot("stop")
-            if event.key == pygame.K_KP5:
-                player2.gun = player2.exploder
-                player2.shoot("stop")
-            if event.key == pygame.K_6:
-                player1.gun = player1.laser
-                player1.shoot("stop")
-            if event.key == pygame.K_KP6:
-                player2.gun = player2.laser
-                player2.shoot("stop")
-        if event.type == pygame.KEYUP:
-            if event.key == pygame.K_w:
-                player1.go("stop up")
-            if event.key == pygame.K_UP:
-                player2.go("stop up")
-            if event.key == pygame.K_d:
-                player1.go("stop right")
-            if event.key == pygame.K_RIGHT:
-                player2.go("stop right")
-            if event.key == pygame.K_s:
-                player1.go("stop down")
-            if event.key == pygame.K_DOWN:
-                player2.go("stop down")
-            if event.key == pygame.K_a:
-                player1.go("stop left")
-            if event.key == pygame.K_LEFT:
-                player2.go("stop left")
-            if event.key == pygame.K_SPACE:
-                player1.shoot("stop")
-            if event.key == pygame.K_RETURN:
-                player2.shoot("stop")
-                
+    while run == "game":
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT: sys.exit()
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_w:
+                    player1.go("up")
+                if event.key == pygame.K_UP:
+                    player2.go("up")
+                if event.key == pygame.K_d:
+                    player1.go("right")
+                if event.key == pygame.K_RIGHT:
+                    player2.go("right")
+                if event.key == pygame.K_s:
+                    player1.go("down")
+                if event.key == pygame.K_DOWN:
+                    player2.go("down")
+                if event.key == pygame.K_a:
+                    player1.go("left")
+                if event.key == pygame.K_LEFT:
+                    player2.go("left")
+                if event.key == pygame.K_SPACE:
+                    player1.shoot()
+                if event.key == pygame.K_RETURN:
+                    player2.shoot()
+                if event.key == pygame.K_1:
+                    player1.gun = player1.pistol
+                    player1.shoot("stop")
+                if event.key == pygame.K_KP1:
+                    player2.gun = player2.pistol
+                    player2.shoot("stop")
+                if event.key == pygame.K_2:
+                    player1.gun = player1.shotGun
+                    player1.shoot("stop")
+                if event.key == pygame.K_KP2:
+                    player2.gun = player2.shotGun
+                    player2.shoot("stop")
+                if event.key == pygame.K_3:
+                    player1.gun = player1.uzi
+                    player1.shoot("stop")
+                if event.key == pygame.K_KP3:
+                    player2.gun = player2.uzi
+                    player2.shoot("stop")
+                if event.key == pygame.K_4:
+                    player1.gun = player1.joker
+                    player1.shoot("stop")
+                if event.key == pygame.K_KP4:
+                    player2.gun = player2.joker
+                    player2.shoot("stop")
+                if event.key == pygame.K_5:
+                    player1.gun = player1.exploder
+                    player1.shoot("stop")
+                if event.key == pygame.K_KP5:
+                    player2.gun = player2.exploder
+                    player2.shoot("stop")
+                if event.key == pygame.K_6:
+                    player1.gun = player1.laser
+                    player1.shoot("stop")
+                if event.key == pygame.K_KP6:
+                    player2.gun = player2.laser
+                    player2.shoot("stop")
+            if event.type == pygame.KEYUP:
+                if event.key == pygame.K_w:
+                    player1.go("stop up")
+                if event.key == pygame.K_UP:
+                    player2.go("stop up")
+                if event.key == pygame.K_d:
+                    player1.go("stop right")
+                if event.key == pygame.K_RIGHT:
+                    player2.go("stop right")
+                if event.key == pygame.K_s:
+                    player1.go("stop down")
+                if event.key == pygame.K_DOWN:
+                    player2.go("stop down")
+                if event.key == pygame.K_a:
+                    player1.go("stop left")
+                if event.key == pygame.K_LEFT:
+                    player2.go("stop left")
+                if event.key == pygame.K_SPACE:
+                    player1.shoot("stop")
+                if event.key == pygame.K_RETURN:
+                    player2.shoot("stop")
+                if event.key == pygame. K_BACKSPACE: 
+                    run = "menu"
                 
         if len(enemies) < 240:
             if random.randint(0, int(spawnRate*60)) == 0:
