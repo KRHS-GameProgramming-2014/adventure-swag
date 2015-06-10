@@ -56,10 +56,32 @@ class Bullet(Ball):
 
 class Exploder(Bullet):
     def __init__(self, pos, bspeed, heading, heading2 = None, life = 40):
-        Bullet.__init__(self, pos, bspeed, heading, heading2 = None)
+        pygame.sprite.Sprite.__init__(self, self.containers)
         self.image = pygame.image.load("RSC/Bullet/Fireball.png")
+        self.rect = self.image.get_rect(center = pos)
+        self.maxspeed = 5
+        self.speedx = 0
+        self.speedy = 0
+        self.speed = [self.speedx, self.speedy]
+        self.place(pos)
+        self.radius = (int(self.rect.height/2.0 + self.rect.width/2.0)/2) - 1
         self.bSpeed = bspeed
         self.life = life
+        
+    def update(*args):
+        self = args[0]
+        width = args[1]
+        height = args[2]
+        Ball.update(self, width, height,)
+        self.move()
+        if self.life > 0:
+            self.life -= 1
+        else:
+            self.living = False
+    
+    def move(self):
+        self.speed = [self.speedx, self.speedy]
+        self.rect = self.rect.move(self.speed)
         
     def collideZombie(self, other):
         if self.rect.right > other.rect.left and self.rect.left < other.rect.right:
@@ -74,12 +96,35 @@ class Exploder(Bullet):
 
 class Laser(Bullet):
     def __init__(self, pos, bspeed, heading, heading2 = None, life = 100):
-        Bullet.__init__(self, pos, bspeed, heading, heading2 = None)
+        pygame.sprite.Sprite.__init__(self, self.containers)
         self.image = pygame.image.load("RSC/Bullet/Lasershot.png")
+        self.rect = self.image.get_rect(center = pos)
+        self.maxspeed = 5
+        self.speedx = 0
+        self.speedy = 0
+        self.speed = [self.speedx, self.speedy]
+        self.place(pos)
+        self.radius = (int(self.rect.height/2.0 + self.rect.width/2.0)/2) - 1
     def collideZombie(self, other):
         if self.rect.right > other.rect.left and self.rect.left < other.rect.right:
             if self.rect.bottom > other.rect.top and self.rect.top < other.rect.bottom:
                 if (self.radius + other.radius) > self.distance(other.rect.center):
                     self.living = False
+    def update(*args):
+        self = args[0]
+        width = args[1]
+        height = args[2]
+        Ball.update(self, width, height,)
+        self.move()
+        if self.life > 0:
+            self.life -= 1
+        else:
+            self.living = False
+    
+    def move(self):
+        self.speed = [self.speedx, self.speedy]
+        self.rect = self.rect.move(self.speed)
         return []
+   
+    
         

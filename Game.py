@@ -18,15 +18,13 @@ size = width, height
 screen = pygame.display.set_mode(size)
 
 enemies = pygame.sprite.Group()
-playerx = pygame.sprite.Group()
-playery = pygame.sprite.Group()
+players = pygame.sprite.Group()
 hudItems = pygame.sprite.Group()
 backgrounds = pygame.sprite.Group()
 bullets = pygame.sprite.Group()
 all = pygame.sprite.OrderedUpdates()
 
-Player.containers = (all, playerx)
-Player2.containers = (all, playery)
+Player.containers = (all, players)
 Background.containers = (all, backgrounds)
 Zombie.containers = (all, enemies)
 Bullet.containers = (all, bullets)
@@ -38,9 +36,9 @@ score = Score([width-300, height-25], "Score: ", 80)
 
 spawnRate = .3 #seconds
 
-player1 = Player((width/2, height/2))
+player1 = Player((width/2, height/2), 1)
 
-player2 = Player2((width/2, height/2))
+player2 = Player((width/2, height/2), 2)
 
 while True:
     for event in pygame.event.get():
@@ -214,19 +212,24 @@ while True:
                 elif kind <122:
                     BadJuju([-50, random.randint(0,height)])
 
-    for player1 in playerx.sprites():
-        if player1.shooting:
-            player1.shoot()
-    for player2 in playery.sprites():
-        if player2.shooting:
-            player2.shoot()
+    for player in players.sprites():
+        if player.shooting:
+            player.shoot()
+    
             
     bulletsHitEnemies = pygame.sprite.groupcollide(bullets, enemies, True, True)
+    enemiesHitPlayers = pygame.sprite.groupcollide(enemies, players, True, True)
     
     for bullet in bulletsHitEnemies:
-            for enemy in bulletsHitEnemies[bullet]:
-                enemy.collideBullet(bullet)
-                score.increaseScore(enemy.value)
+        for enemy in bulletsHitEnemies[bullet]:
+            enemy.collideBullet(bullet)
+            score.increaseScore(enemy.value)
+                
+    for enemy in enemiesHitPlayers:
+        for player in enemiesHitPlayers[enemy]:
+            player.collideZombie(enemy)
+            if not player.living:
+                run = "menu"
         
     
     all.update(width, height, player1.rect.center, player2.rect.center)

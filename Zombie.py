@@ -24,6 +24,7 @@ class Zombie(Ball):
         self.speedy = 0
         self.kind = "zombie"
         self.value = 100
+        self.damage = 1.0
         
     def update(*args):
         self = args[0]
@@ -125,6 +126,7 @@ class RedZombie(Zombie):
         self.maxSpeed = random.randint(1,3)
         self.kind = "zombie"
         self.value = 500
+        self. damage = 1.5
         
     def update(*args):
         self = args[0]
@@ -221,6 +223,7 @@ class  Maoira(Zombie):
         self.radius = (int(self.rect.height/2.0 + self.rect.width/2.0)/2) - 1
         self.kind = "maoira"
         self.value = 1000
+        self.damage = 0.5
         
     def update(*args):
         self = args[0]
@@ -317,6 +320,7 @@ class Phantom(Zombie):
         self.radius = (int(self.rect.height/2.0 + self.rect.width/2.0)/2) - 1
         self.kind = "phantom"
         self.value = 2000
+        self.damage = 3.5
         
     def update(*args):
         self = args[0]
@@ -414,6 +418,7 @@ class Druflyll(Zombie):
         self.life = 2.0
         self.kind = "druflyll"
         self.value = 3500
+        self.damage = 3.5
         
     def update(*args):
         self = args[0]
@@ -514,6 +519,7 @@ class Chatterbox(Zombie):
         self.life = 1.0
         self.kind = "chatterbox"
         self.value = 3000
+        self.damage = 2.0
         
     def update(*args):
         self = args[0]
@@ -614,6 +620,7 @@ class Illuminatus(Zombie):
         self.life = 20.0
         self.kind = "illuminatus"
         self.value = 50000
+        self.damage = 20.0
         
     def update(*args):
         self = args[0]
@@ -714,6 +721,7 @@ class Raksasha(Zombie):
         self.life = 4.0
         self.kind = "raksasha"
         self.value = 10000
+        self.damage = 7.5
         
     def update(*args):
         self = args[0]
@@ -814,6 +822,7 @@ class Ghast(Zombie):
         self.life = 4.0
         self.kind = "ghast"
         self.value = 10000
+        self.damage = 6.0
         
     def update(*args):
         self = args[0]
@@ -914,6 +923,7 @@ class BadJuju(Zombie):
         self.life = 10.0
         self.kind = "badjuju"
         self.value = 1000000
+        self.damage = 100.0
         
     def update(*args):
         self = args[0]
