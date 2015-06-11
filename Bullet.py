@@ -96,7 +96,7 @@ class Exploder(Bullet):
 
 class Laser(Bullet):
     def __init__(self, pos, bspeed, heading, heading2 = None, life = 100):
-        pygame.sprite.Sprite.__init__(self, self.containers)
+        Bullet.__init__(self, pos, bspeed, heading, heading2 = None, life = 500)
         self.image = pygame.image.load("RSC/Bullet/Lasershot.png")
         self.rect = self.image.get_rect(center = pos)
         self.maxspeed = 5
@@ -121,7 +121,34 @@ class Laser(Bullet):
             self.life -= 1
         else:
             self.living = False
-    
+            
+    def go(self, direction):
+        if direction == "up":
+            self.facing = "up"
+            self.changed = True
+            self.speedy = -self.maxspeed
+        elif direction == "stop up":
+            self.speedy = 0
+        elif direction == "down":
+            self.facing = "down"
+            self.changed = True
+            self.speedy = self.maxspeed
+        elif direction == "stop down":
+            self.speedy = 0
+            
+        if direction == "right":
+            self.facing = "right"
+            self.changed = True
+            self.speedx = self.maxspeed
+        elif direction == "stop right":
+            self.speedx = 0
+        elif direction == "left":
+            self.facing = "left"
+            self.changed = True
+            self.speedx = -self.maxspeed
+        elif direction == "stop left":
+            self.speedx = 0
+            
     def move(self):
         self.speed = [self.speedx, self.speedy]
         self.rect = self.rect.move(self.speed)

@@ -165,7 +165,7 @@ class Player(Ball):
         if not self.invincible:
             if (self.radius + other.radius) > self.distance(other.rect.center):
                 if self.life > 0:
-                    self.life -= enemy.damage
+                    self.life -= other.damage
                     print "whack"
                     self.hurtTimer = self.hurtTimerMax
                 elif self.life < 0: 
