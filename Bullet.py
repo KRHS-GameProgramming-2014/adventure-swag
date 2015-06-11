@@ -105,6 +105,7 @@ class Laser(Bullet):
         self.speed = [self.speedx, self.speedy]
         self.place(pos)
         self.radius = (int(self.rect.height/2.0 + self.rect.width/2.0)/2) - 1
+        self.life = life
     def collideZombie(self, other):
         if self.rect.right > other.rect.left and self.rect.left < other.rect.right:
             if self.rect.bottom > other.rect.top and self.rect.top < other.rect.bottom:

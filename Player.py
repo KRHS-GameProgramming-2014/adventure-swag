@@ -3,6 +3,7 @@ from Ball import Ball
 from Bullet import *
 from Gun import Gun
 
+
 class Player(Ball):
     def __init__(self, pos, num):
         pygame.sprite.Sprite.__init__(self, self.containers)
@@ -165,6 +166,7 @@ class Player(Ball):
             if (self.radius + other.radius) > self.distance(other.rect.center):
                 if self.life > 0:
                     self.life -= enemy.damage
+                    print "whack"
                     self.hurtTimer = self.hurtTimerMax
                 elif self.life < 0: 
                     self.living = False        
